@@ -1,0 +1,16 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="jumbotron">
+    <h1 class="display-4">WinAuthDemoApp</h1>
+    <p class="lead">Basic .Net Web app to test Windows authentication</p>
+</div>
+
+<div class="alert alert-success" role="alert">
+    Logged in as: @Model.HttpContext.User.Identity.Name <br/>
+    Authentication type: @Model.HttpContext.User.Identity.AuthenticationType <br/>
+</div>
+
