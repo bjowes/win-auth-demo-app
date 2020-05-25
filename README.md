@@ -1,2 +1,2 @@
-# ntlm-demo-app
-NTLM demo app for authentication testing
+# win-auth-demo-app
+Demo app for windows authentication testing
