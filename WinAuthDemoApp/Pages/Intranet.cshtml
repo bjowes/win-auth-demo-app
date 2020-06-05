@@ -1,0 +1,59 @@
+﻿@page
+@model IntranetModel
+@{
+    ViewData["Title"] = "Intranet";
+}
+
+<div class="jumbotron">
+    <h1 class="display-4">Intranet</h1>
+    <p class="lead">Attempts to load a resource from an intranet API that requires windows authentication</p>
+</div>
+
+@section Scripts{
+    <script>
+        function callApi() {
+            var url = "@ViewData["IntranetUrl"]";
+            var apiResult = $('#api-result');
+            apiResult.text('Starting request with windows authentication to ' + url);
+            var jqxhr = $.ajax(url,
+                    {
+                        xhrFields: {
+                            withCredentials: true
+                        }
+                })
+            
+                .done(function (data, textStatus, jqXHR) {
+                    apiResult.text('Request with windows authentication succeeded, response content "' + data + '"');
+                    apiResult.addClass('alert-success');
+                    apiResult.removeClass('alert-warning');
+                })
+                .fail(function (jqXHR, textStatus, errorThrown) {
+                    console.error(jqXHR);
+                    console.error(errorThrown);
+                    apiResult.text('Request with windows authentication failed, response status code: ' + jqXHR.status);
+                    apiResult.addClass('alert-danger');
+                    apiResult.removeClass('alert-warning');
+                });
+        }
+
+        $(callApi);
+    </script>
+}
+
+    <div id="api-result" class="alert alert-warning" role="alert">
+        Waiting to start request
+    </div>
+
+    @if (@Model.User.Identity.IsAuthenticated)
+    {
+        <div class="alert alert-success" role="alert">
+            Logged in as: @Model.HttpContext.User.Identity.Name <br />
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning" role="alert">
+            Not logged in, anonymous access!
+        </div>
+    }
+

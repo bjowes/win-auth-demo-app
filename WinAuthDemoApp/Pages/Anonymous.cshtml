@@ -1,12 +1,12 @@
 ﻿@page
-@model IndexModel
+@model AnonymousModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Anonymous";
 }
 
 <div class="jumbotron">
-    <h1 class="display-4">WinAuthDemoApp</h1>
-    <p class="lead">Basic .Net Web app to test Windows authentication</p>
+    <h1 class="display-4">Anonymous access</h1>
+    <p class="lead">Any user can access with or without windows authentication</p>
 </div>
 
 @if (@Model.User.Identity.IsAuthenticated)
