@@ -1,4 +1,5 @@
 /// <reference types="cypress" />
+/// <reference types="cypress-ntlm-auth/dist/commands" />
 // @ts-check
 
 describe("Windows Authentication with plugin", () => {
@@ -20,9 +21,10 @@ describe("Windows Authentication with plugin", () => {
   describe("Authenticated page", () => {
     it("can login to site with cy.ntlm", () => {
       cy.ntlm(
-        "https://winauthdemoapp.mpautv.mpa.se",
+        "https://winauthdemoapp.bwdemo.se",
         Cypress.env("E2E_USER"),
-        Cypress.env("E2E_PASSWORD")
+        Cypress.env("E2E_PASSWORD"),
+        Cypress.env("E2E_DOMAIN")
       );
       cy.visit("/");
       cy.get("a").contains("Authenticate").click();
@@ -33,7 +35,7 @@ describe("Windows Authentication with plugin", () => {
     });
 
     it("can login to site with cy.ntlmSso", () => {
-      cy.ntlmSso(["*.mpautv.mpa.se"]);
+      cy.ntlmSso(["*.bwdemo.se"]);
       cy.visit("/");
       cy.get("a").contains("Authenticate").click();
       cy.get("div.jumbotron").should(
@@ -46,9 +48,10 @@ describe("Windows Authentication with plugin", () => {
   describe("Intranet API", () => {
     it("can login to intranet API with cy.ntlm", () => {
       cy.ntlm(
-        "https://winauthdemoapi.mpautv.mpa.se",
+        "https://winauthdemoapi.bwdemo.se",
         Cypress.env("E2E_USER"),
-        Cypress.env("E2E_PASSWORD")
+        Cypress.env("E2E_PASSWORD"),
+        Cypress.env("E2E_DOMAIN")
       );
       cy.visit("/");
       cy.get("a").contains("Intranet API").click();
@@ -56,7 +59,7 @@ describe("Windows Authentication with plugin", () => {
     });
 
     it("can login to intranet API with cy.ntlmSso", () => {
-      cy.ntlmSso(["winauthdemoapi.mpautv.mpa.se"]);
+      cy.ntlmSso(["winauthdemoapi.bwdemo.se"]);
       cy.visit("/");
       cy.get("a").contains("Intranet API").click();
       cy.get("#api-result").should("have.class", "alert-success");
@@ -64,14 +67,16 @@ describe("Windows Authentication with plugin", () => {
 
     it("can login to site and intranet API with cy.ntlm", () => {
       cy.ntlm(
-        "https://winauthdemoapp.mpautv.mpa.se",
+        "https://winauthdemoapp.bwdemo.se",
         Cypress.env("E2E_USER"),
-        Cypress.env("E2E_PASSWORD")
+        Cypress.env("E2E_PASSWORD"),
+        Cypress.env("E2E_DOMAIN")
       );
       cy.ntlm(
-        "https://winauthdemoapi.mpautv.mpa.se",
+        "https://winauthdemoapi.bwdemo.se",
         Cypress.env("E2E_USER"),
-        Cypress.env("E2E_PASSWORD")
+        Cypress.env("E2E_PASSWORD"),
+        Cypress.env("E2E_DOMAIN")
       );
       cy.visit("/");
       cy.get("a").contains("Authenticate").click();
@@ -84,7 +89,7 @@ describe("Windows Authentication with plugin", () => {
     });
 
     it("can login to site and intranet API with cy.ntlmSso", () => {
-      cy.ntlmSso(["*.mpautv.mpa.se"]);
+      cy.ntlmSso(["*.bwdemo.se"]);
       cy.visit("/");
       cy.get("a").contains("Authenticate").click();
       cy.get("div.jumbotron").should(

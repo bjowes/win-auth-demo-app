@@ -1,3 +1,6 @@
+/// <reference types="cypress" />
+// @ts-check
+
 describe("Windows authentication in Cypress", () => {
   describe("Anonymous", () => {
     it("can access anonymous page", () => {

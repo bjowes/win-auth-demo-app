@@ -1,1 +1,3 @@
 cypress.env.json
+.http-mitm-proxy
+bwdemo-root.cer
