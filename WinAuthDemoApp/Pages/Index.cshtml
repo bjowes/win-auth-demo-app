@@ -11,14 +11,42 @@
 
 @if (@Model.User.Identity.IsAuthenticated)
 {
-<div class="alert alert-success" role="alert">
-    Logged in as: @Model.HttpContext.User.Identity.Name <br />
-</div>
+    <div class="alert alert-success" role="alert">
+        Logged in as: @Model.HttpContext.User.Identity.Name <br />
+    </div>
 }
 else
 {
-<div class="alert alert-warning" role="alert">
-    Not logged in, anonymous access!
-</div>
+    <div class="alert alert-warning" role="alert">
+        Not logged in, anonymous access!
+    </div>
 }
+
+<script>
+    function userLookup() {
+        var username = $('#username').val();
+        if (username === 'jdoe') {
+            $('div.display-name').text('Full name: John Doe').css('color', 'black');
+        } else {
+            $('div.display-name').text('Unknown user').css('color', 'red');
+        }
+    }
+</script>
+
+<div class="panel panel-default">
+    <div class="panel-heading">User lookup</div>
+    <div class="panel-body">
+        <form>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" />
+            </div>
+            <button type="button" class="btn btn-primary" onclick="userLookup()">Lookup</button>
+        </form>
+        <br />
+        <div class="display-name"></div>
+    </div>
+</div>
+
+
 

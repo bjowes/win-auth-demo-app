@@ -46,15 +46,11 @@ namespace WinAuthDemoApi
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseHsts();
-            }
 
             app.UseCors(builder => builder
                 .SetIsOriginAllowed(origin =>
                 {
-                    if (origin.EndsWith("mpautv.mpa.se") ||
+                    if (origin.EndsWith(Configuration["WinAuthDemoAppHost"]) ||
                         (origin.StartsWith("http://localhost") ||
                          origin.StartsWith("https://localhost")))
                     {
@@ -67,7 +63,6 @@ namespace WinAuthDemoApi
                 .AllowCredentials()
                 .SetPreflightMaxAge(TimeSpan.FromHours(1)));
 
-            app.UseHttpsRedirection();
             app.UseMvc();
         }
     }
